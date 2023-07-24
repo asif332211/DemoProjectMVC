@@ -66,5 +66,27 @@ namespace DemoProjectMVC.Controllers
             return RedirectToAction(nameof(Index));
 
         }
+
+        public IActionResult Delete(int id)
+        {
+            return View(_context.Students.Find(id));
+
+        }
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirm(int id)
+        {
+            var student = _context.Students.Find(id);
+            if (student != null)
+            {
+                _context.Students.Remove(student);
+                _context.SaveChanges();
+
+                return RedirectToAction(nameof(Index));
+                
+            }
+
+            return View();
+        }
+
     }
 }
